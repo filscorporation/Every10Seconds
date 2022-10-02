@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15B166FE-4CC0-48FC-961C-91437C541858}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SteelCustom</RootNamespace>
+    <AssemblyName>SteelCustom</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SteelCore">
+      <HintPath>..\SteelCore\bin\Debug\SteelCore.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlackholeEffect.cs" />
+    <Compile Include="CameraController.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyController.cs" />
+    <Compile Include="FireballProjectile.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Projectile.cs" />
+    <Compile Include="Skill.cs" />
+    <Compile Include="SkillObject.cs" />
+    <Compile Include="SkillSpawner.cs" />
+    <Compile Include="Skills\Amnesia.cs" />
+    <Compile Include="Skills\Blackhole.cs" />
+    <Compile Include="Skills\Blast.cs" />
+    <Compile Include="Skills\BlastWave.cs" />
+    <Compile Include="Skills\Earthquake.cs" />
+    <Compile Include="Skills\Fireball.cs" />
+    <Compile Include="Skills\Frostbolt.cs" />
+    <Compile Include="Skills\Shockwave.cs" />
+    <Compile Include="Timeline.cs" />
+    <Compile Include="UIComponents\UIGuide.cs" />
+    <Compile Include="UIComponents\UIMenu.cs" />
+    <Compile Include="UIComponents\UIPlayerInfo.cs" />
+    <Compile Include="UIComponents\UISkill.cs" />
+    <Compile Include="UIComponents\UITimeline.cs" />
+    <Compile Include="UIComponents\UITooltip.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>
