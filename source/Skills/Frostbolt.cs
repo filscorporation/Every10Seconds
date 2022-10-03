@@ -10,7 +10,9 @@ namespace SteelCustom.Skills
         public override float Rarity => 0.7f;
         public override float MinTimeToSpawn => 30.0f;
         public override string Name => "Frostbolt";
-        public override string Description => "Freeze enemy for 10 seconds";
+        public override string Description => "Freeze enemies in small area for 10 seconds";
+
+        private float FREEZE_RADIUS = 0.55f;
         
         public override void Use()
         {
@@ -27,14 +29,21 @@ namespace SteelCustom.Skills
 
         private void OnHit(Entity entity, Enemy enemy)
         {
+            enemy.Freeze(10);
+            
+            foreach (Enemy otherEnemy in Component.FindAllOfType<Enemy>())
+            {
+                if (Vector2.Distance(otherEnemy.Transformation.Position, entity.Transformation.Position) <= FREEZE_RADIUS
+                    && otherEnemy != enemy)
+                    otherEnemy.Freeze(10);
+            }
+            
             Entity effect = ResourcesManager.LoadAsepriteData("frostbolt_effect.aseprite").CreateEntityFromAsepriteData();
             effect.Transformation.Position = entity.Transformation.Position + new Vector3(0.0f, 0.0f, 0.5f);
             effect.GetComponent<Animator>().Play("Effect");
             effect.Destroy(0.4f);
             
             effect.AddComponent<AudioSource>().Play(ResourcesManager.LoadAudioTrack("ice_explosion.wav"));
-            
-            enemy.Freeze(10);
         }
     }
 }

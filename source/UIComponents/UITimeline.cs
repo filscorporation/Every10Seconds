@@ -168,7 +168,7 @@ namespace SteelCustom.UIComponents
         {
             lastActivated?.Deactivate();
 
-            UISkill uiSkill = skills.FirstOrDefault(s => s.Skill == skill);
+            UISkill uiSkill = skills.FirstOrDefault(s => ReferenceEquals(s.Skill, skill));
             if (uiSkill == null)
             {
                 Log.LogError($"No UI for skill {skill.GetType()} found");
@@ -181,7 +181,7 @@ namespace SteelCustom.UIComponents
 
         public void DeactivateSkill(Skill skill)
         {
-            UISkill uiSkill = skills.FirstOrDefault(s => s.Skill == skill);
+            UISkill uiSkill = skills.FirstOrDefault(s => ReferenceEquals(s.Skill, skill));
             if (uiSkill == null)
             {
                 Log.LogError($"No UI for skill {skill.GetType()} found");

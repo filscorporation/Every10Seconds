@@ -36,9 +36,6 @@ namespace SteelCustom
             CastPoint.LocalPosition = new Vector3(0.3f, 0.05f);
             
             Timeline = new Timeline();
-            // TODO: for test
-            //Timeline.InsertSkill(new Blast(), 2.0f);
-
             UI.CreateUIElement("Player UI", GameManager.InGameUIRoot).AddComponent<UIPlayerInfo>().Init(this);
             
             OnUpdate();

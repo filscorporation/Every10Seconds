@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Steel;
 using SteelCustom.Skills;
 using SteelCustom.UIComponents;
+using Random = Steel.Random;
 
 namespace SteelCustom
 {
@@ -19,21 +21,21 @@ namespace SteelCustom
         private float spawnTimer = 0.0f;
         private float spawnDelay = 10.0f;
 
-        private List<Skill> skills = new List<Skill>();
+        private List<(Skill, Func<Skill>)> skills = new List<(Skill, Func<Skill>)>();
         
         private bool stop = false;
         private Entity tooltip;
 
         public override void OnCreate()
         {
-            skills.Add(new Amnesia());
-            skills.Add(new Blackhole());
-            skills.Add(new Blast());
-            skills.Add(new BlastWave());
-            skills.Add(new Earthquake());
-            skills.Add(new Fireball());
-            skills.Add(new Frostbolt());
-            skills.Add(new Shockwave());
+            skills.Add((new Amnesia(), () => new Amnesia()));
+            skills.Add((new Blackhole(), () => new Blackhole()));
+            skills.Add((new Blast(), () => new Blast()));
+            skills.Add((new BlastWave(), () => new BlastWave()));
+            skills.Add((new Earthquake(), () => new Earthquake()));
+            skills.Add((new Fireball(), () => new Fireball()));
+            skills.Add((new Frostbolt(), () => new Frostbolt()));
+            skills.Add((new Shockwave(), () => new Shockwave()));
             
             SpawnSkillObject(new Blast());
         }
@@ -122,22 +124,25 @@ namespace SteelCustom
         
         private Skill RandomWeightedSkill()
         {
-            float sum = skills.Sum(s => s.MinTimeToSpawn >= gameTimer ? 0.0f : s.Rarity);
+            if (!skills.Any())
+                return null;
+            
+            float sum = skills.Sum(s => s.Item1.MinTimeToSpawn >= gameTimer ? 0.0f : s.Item1.Rarity);
             float seed = Random.NextFloat(0, sum);
 
-            Skill selectedSkill = null;
-            foreach (Skill skill in skills.Where(s => s.MinTimeToSpawn < gameTimer))
+            (Skill, Func<Skill>) selectedSkill = skills.First();
+            foreach (var skill in skills.Where(s => s.Item1.MinTimeToSpawn < gameTimer))
             {
-                if (seed < skill.Rarity)
+                if (seed < skill.Item1.Rarity)
                 {
                     selectedSkill = skill;
                     break;
                 }
 
-                seed -= skill.Rarity;
+                seed -= skill.Item1.Rarity;
             }
 
-            return selectedSkill;
+            return selectedSkill.Item2();
         }
         
         private void SpawnSkillObject(Skill skill)

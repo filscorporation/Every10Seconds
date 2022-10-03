@@ -7,7 +7,7 @@ namespace SteelCustom.Skills
         public override string SkillObjectName => "blastwave_object.png";
         public override string UISkillName => "ui_blastwave.aseprite";
         public override float Duration => 3.0f;
-        public override float Rarity => 0.15f;
+        public override float Rarity => 0.3f;
         public override float MinTimeToSpawn => 30.0f;
         public override string Name => "Blast wave";
         public override string Description => "Fire many blasts, increased for every blast picked this game";

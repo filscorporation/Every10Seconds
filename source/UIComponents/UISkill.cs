@@ -7,6 +7,7 @@ namespace SteelCustom.UIComponents
     {
         public Skill Skill;
         private Sprite saveSprite;
+        private Entity tooltip;
 
         public void Init(Skill skill)
         {
@@ -37,7 +38,6 @@ namespace SteelCustom.UIComponents
         {
             if (GameManager.SkillSpawner.IsRemovingSkill)
             {
-                Log.LogInfo("Enter " + Skill.GetType());
                 saveSprite = GetComponent<UIImage>().Sprite;
                 GetComponent<UIImage>().Sprite = GameManager.Player.Timeline.UITimeline.RemoveFrameSprite;
 
@@ -45,16 +45,21 @@ namespace SteelCustom.UIComponents
             }
         }
 
+        public override void OnMouseOverUI()
+        {
+            tooltip = UITooltip.ShowTooltip(Skill);
+        }
+
         public override void OnMouseExitUI()
         {
+            UITooltip.HideTooltip(tooltip);
+            tooltip = null;
+            
             if (saveSprite != null)
                 GetComponent<UIImage>().Sprite = saveSprite;
 
             if (GameManager.SkillSpawner.IsRemovingSkill)
-            {
-                Log.LogInfo("Exit " + Skill.GetType());
                 GameManager.SkillSpawner.CurrentSkillToRemove = null;
-            }
         }
     }
 }
