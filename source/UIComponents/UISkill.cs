@@ -26,11 +26,21 @@ namespace SteelCustom.UIComponents
 
         public void Activate()
         {
+            if (Entity == null || Entity.IsDestroyed() || !HasComponent<UIImage>())
+            {
+                Log.LogWarning("Trying to activate deleted UISkill");
+                return;
+            }
             GetComponent<UIImage>().Sprite = GameManager.Player.Timeline.UITimeline.ActiveFrameSprite;
         }
 
         public void Deactivate()
         {
+            if (Entity == null || Entity.IsDestroyed() || !HasComponent<UIImage>())
+            {
+                Log.LogWarning("Trying to deactivate deleted UISkill");
+                return;
+            }
             GetComponent<UIImage>().Sprite = GameManager.Player.Timeline.UITimeline.SkillFrameSprite;
         }
 
